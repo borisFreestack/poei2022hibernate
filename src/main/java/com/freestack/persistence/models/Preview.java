@@ -12,10 +12,6 @@ public class Preview {
     private Date date;
     private String city;
     private Integer numberOfSeats;
-    /*@ManyToOne
-    @JoinColumn(name="MOVIE_ID")
-    private Movie movie;*/
-
     public Long getId() {
         return id;
     }
@@ -47,15 +43,6 @@ public class Preview {
     public void setNumberOfSeats(Integer numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
     }
-
-    /*public Movie getMovie() {
-        return movie;
-    }
-
-    public Preview setMovie(Movie movie) {
-        this.movie = movie;
-        return this;
-    }*/
 
     @Override
     public String toString() {

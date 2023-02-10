@@ -5,6 +5,7 @@ import com.freestack.persistence.models.Movie;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 public class Initializer {
 
@@ -28,10 +29,16 @@ public class Initializer {
 			aVeryBigMovie2.setLength(93);
 			aVeryBigMovie2.setReleaseYear(2013);
 
+			Movie aVeryBigMovie3 = new Movie();
+			aVeryBigMovie3.setTitle("Another very big movie 3");
+			aVeryBigMovie3.setLength(93);
+			aVeryBigMovie3.setReleaseYear(2013);
+
 			entityManager.getTransaction().begin();
 
 			entityManager.persist(aVeryBigMovie1);
 			entityManager.persist(aVeryBigMovie2);
+			entityManager.persist(aVeryBigMovie3);
 
 			// point 2
 			entityManager.getTransaction().commit();
@@ -58,8 +65,8 @@ public class Initializer {
 			Integer maxLengthFound = (Integer) query4.getSingleResult();
 			Query query5 = entityManager.createQuery("SELECT m FROM Movie m WHERE m.length = :maxLength");
 			query5.setParameter("maxLength", maxLengthFound);
-			Movie movieMaxLength = (Movie) query5.getSingleResult();
-			System.out.println(movieMaxLength.toString());
+			List<Movie> movieMaxLength = query5.getResultList();
+			movieMaxLength.forEach(m-> System.out.println(m.toString()));
 
 			// point 6
 			Query query6 = entityManager.createQuery("SELECT AVG(m.length) FROM Movie m");
@@ -76,10 +83,19 @@ public class Initializer {
 			//Query query8 = entityManager.createQuery("SELECT AVG(m.length) FROM Movie m");
 			//System.out.println(query6.getSingleResult());
 
+			// TP 2
+			entityManager.getTransaction().begin();
+			Query queryTP2 = entityManager.createQuery("SELECT m FROM Movie m WHERE m.description is null");
+			List<Movie> queryTP2Results = queryTP2.getResultList();
+			queryTP2Results.forEach(movie -> {
+				movie.setDescription(movie.getTitle());
+			});
+
+			entityManager.getTransaction().commit();
 
 			entityManager.close();
 		} catch (Exception e) {
-
+			System.out.println(e.getMessage());
 		} finally {
 			emf.close();
 		}

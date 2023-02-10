@@ -17,13 +17,6 @@ public class Actor {
     private String lastName;
     private LocalDate birthDate;
 
-   /* @ManyToMany
-    @JoinTable(
-        name = "actor_in_movie",
-        joinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id")
-    )
-    private List<Movie> moviesPlayedIn;*/
 
     public Actor() {
     }
@@ -33,12 +26,6 @@ public class Actor {
         this.lastName = lastName;
     }
 
-    /*public void addMovie(Movie movie){
-        if(moviesPlayedIn == null){
-            moviesPlayedIn = new ArrayList<>();
-        }
-        moviesPlayedIn.add(movie);
-    }*/
 
     public Long getId() {
         return id;

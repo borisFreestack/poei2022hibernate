@@ -19,54 +19,12 @@ public class Movie {
     private Integer releaseYear;
     private Integer length;
 
-    /*@Column(name = "date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private Date date = new Date();
-    @Column(name = "instant", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private Instant instant = Instant.now();
-
-    @Column(name = "zonedDateTime", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private ZonedDateTime zonedDateTime = ZonedDateTime.now();
-
-    @Column(name = "local_date", columnDefinition = "DATE")
-    private LocalDate localDate = LocalDate.now();
-
-    @Column(name = "local_date_time", columnDefinition = "TIMESTAMP")
-    private LocalDateTime localDateTime = LocalDateTime.now();
-
-    @Column(name = "offset_time", columnDefinition = "TIME WITH TIME ZONE")
-    private OffsetTime offsetTime = OffsetTime.now();
-
-    @Column(name = "offset_date_time", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private OffsetDateTime offsetDateTime = OffsetDateTime.now();*/
-
-   /* @OneToMany(mappedBy = "movie", cascade = {CascadeType.PERSIST}, orphanRemoval = true)
-    private List<Preview> previews;
-
-    @ManyToMany(mappedBy = "moviesPlayedIn")
-    private List<Actor> actorsPlayedIn;*/
-
     public Movie() {
     }
 
     public Movie(String title) {
         this.title = title;
     }
-
-   /* public void addPreview(Preview preview){
-        if(previews == null) {
-            previews = new ArrayList<>();
-        }
-        previews.add(preview);
-    }
-
-    public List<Preview> getPreviews() {
-        return previews;
-    }
-
-    public Movie setPreviews(List<Preview> previews) {
-        this.previews = previews;
-        return this;
-    }*/
 
     public Long getId() {
         return id;
