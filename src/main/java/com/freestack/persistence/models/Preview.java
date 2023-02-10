@@ -1,6 +1,8 @@
 package com.freestack.persistence.models;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -9,7 +11,7 @@ public class Preview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date date;
+    private LocalDateTime date;
     private String city;
     private Integer numberOfSeats;
     public Long getId() {
@@ -20,11 +22,11 @@ public class Preview {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

@@ -1,9 +1,12 @@
 package com.freestack.persistence;
 
 import com.freestack.persistence.models.Movie;
+import com.freestack.persistence.models.Preview;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,8 +37,19 @@ public class Initializer {
 			aVeryBigMovie3.setLength(93);
 			aVeryBigMovie3.setReleaseYear(2013);
 
+			Preview preview = new Preview();
+			preview.setCity("Nantes");
+			preview.setDate(LocalDateTime.now());
+
+
+
+
 			entityManager.getTransaction().begin();
 
+
+
+			aVeryBigMovie1.setPreview(preview);
+			entityManager.persist(preview);
 			entityManager.persist(aVeryBigMovie1);
 			entityManager.persist(aVeryBigMovie2);
 			entityManager.persist(aVeryBigMovie3);
@@ -75,8 +89,15 @@ public class Initializer {
 
 			// point 7
 			System.out.println("Point 7");
-			Query query7 = entityManager.createQuery("SELECT m FROM Movie m WHERE m.title LIKE '%very%'");
+			String searchedWord = "very";
+			Query query7 = entityManager.createQuery("SELECT m FROM Movie m WHERE m.title LIKE :like");
+			query7.setParameter("like", "%"+searchedWord+"%");
 			List<Movie> movies = query7.getResultList();
+			if(movies.size()==0){
+				System.out.println("Aucun film trouvé contenant dans son titre: " + searchedWord);
+			} else {
+				System.out.println("Liste des films contenant dans son titre: " + searchedWord);
+			}
 			movies.forEach(m-> System.out.println(m.toString()));
 
 			// point 8
@@ -90,9 +111,16 @@ public class Initializer {
 			queryTP2Results.forEach(movie -> {
 				movie.setDescription(movie.getTitle());
 			});
-
 			entityManager.getTransaction().commit();
 
+			// TP 3
+			entityManager.getTransaction().begin();
+
+			Movie movie = entityManager.find(Movie.class, 1L);
+			System.out.println("Avant premiere du film avec l id =  1");
+			System.out.println(movie.getPreview().getCity());
+
+			entityManager.getTransaction().commit();
 			entityManager.close();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

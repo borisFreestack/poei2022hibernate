@@ -19,6 +19,26 @@ public class Movie {
     private Integer releaseYear;
     private Integer length;
 
+    @OneToOne
+    @JoinColumn(name = "fk_preview")
+    private Preview preview;
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
+    }
+
+    public Preview getPreview() {
+        return preview;
+    }
+
+    public void setPreview(Preview preview) {
+        this.preview = preview;
+    }
+
     public Movie() {
     }
 
