@@ -14,6 +14,19 @@ public class Preview {
     private LocalDateTime date;
     private String city;
     private Integer numberOfSeats;
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "fk_movie")
+    private Movie movie;
+
     public Long getId() {
         return id;
     }

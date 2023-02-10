@@ -42,13 +42,10 @@ public class Initializer {
 			preview.setDate(LocalDateTime.now());
 
 
-
-
 			entityManager.getTransaction().begin();
 
 
-
-			aVeryBigMovie1.setPreview(preview);
+			preview.setMovie(aVeryBigMovie3);
 			entityManager.persist(preview);
 			entityManager.persist(aVeryBigMovie1);
 			entityManager.persist(aVeryBigMovie2);
@@ -61,10 +58,13 @@ public class Initializer {
 			results.forEach(movie -> System.out.println(movie.getTitle()));
 
 			// point 3
-			TypedQuery<Movie> query2 = entityManager.createQuery("SELECT m FROM Movie m WHERE m.id = :idToSearch", Movie.class);
+			TypedQuery<Movie> query2 = entityManager.createQuery(
+			"SELECT m FROM Movie m WHERE m.id = :idToSearch",
+			Movie.class
+			);
 			query2.setParameter("idToSearch", 1L);
 			Movie result = query2.getSingleResult();
-			if(result != null ) {
+			if (result != null) {
 				System.out.println(result.getTitle());
 			}
 
@@ -80,7 +80,7 @@ public class Initializer {
 			Query query5 = entityManager.createQuery("SELECT m FROM Movie m WHERE m.length = :maxLength");
 			query5.setParameter("maxLength", maxLengthFound);
 			List<Movie> movieMaxLength = query5.getResultList();
-			movieMaxLength.forEach(m-> System.out.println(m.toString()));
+			movieMaxLength.forEach(m -> System.out.println(m.toString()));
 
 			// point 6
 			Query query6 = entityManager.createQuery("SELECT AVG(m.length) FROM Movie m");
@@ -91,14 +91,14 @@ public class Initializer {
 			System.out.println("Point 7");
 			String searchedWord = "very";
 			Query query7 = entityManager.createQuery("SELECT m FROM Movie m WHERE m.title LIKE :like");
-			query7.setParameter("like", "%"+searchedWord+"%");
+			query7.setParameter("like", "%" + searchedWord + "%");
 			List<Movie> movies = query7.getResultList();
-			if(movies.size()==0){
+			if (movies.size() == 0) {
 				System.out.println("Aucun film trouvé contenant dans son titre: " + searchedWord);
 			} else {
 				System.out.println("Liste des films contenant dans son titre: " + searchedWord);
 			}
-			movies.forEach(m-> System.out.println(m.toString()));
+			movies.forEach(m -> System.out.println(m.toString()));
 
 			// point 8
 			//Query query8 = entityManager.createQuery("SELECT AVG(m.length) FROM Movie m");
@@ -116,9 +116,9 @@ public class Initializer {
 			// TP 3
 			entityManager.getTransaction().begin();
 
-			Movie movie = entityManager.find(Movie.class, 1L);
-			System.out.println("Avant premiere du film avec l id =  1");
-			System.out.println(movie.getPreview().getCity());
+			Preview preview1 = entityManager.find(Preview.class, 1L);
+			System.out.println("Le titre du film de l'avant premiere avec l id =  1 est :");
+			System.out.println(preview1.getMovie().getTitle());
 
 			entityManager.getTransaction().commit();
 			entityManager.close();
