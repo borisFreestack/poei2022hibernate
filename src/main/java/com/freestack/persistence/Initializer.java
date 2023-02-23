@@ -152,6 +152,37 @@ public class Initializer {
 			System.out.println("Casting du film " + aVeryBigMovie3DB.getTitle());
 			aVeryBigMovie3DB.getCasting().forEach(actor-> System.out.println(actor.toString()));
 
+			// TP 7
+
+			Movie aVeryBigMovie4 = new Movie();
+			aVeryBigMovie4.setTitle("Another very big movie 4");
+			aVeryBigMovie4.setLength(93);
+			aVeryBigMovie4.setDescription("Another very big movie 4 description");
+			aVeryBigMovie4.setReleaseYear(2013);
+
+			Preview preview4 = new Preview();
+			preview4.setCity("Nantes");
+			preview4.setDate(LocalDateTime.now());
+
+			//on cree la jointure
+			preview4.setMovie(aVeryBigMovie4);
+
+			entityManager.getTransaction().begin();
+
+			//on persiste la preview
+			entityManager.persist(preview4);
+			entityManager.getTransaction().commit();
+
+			//on clear l'entityManger
+			entityManager.clear();
+
+			entityManager.getTransaction().begin();
+
+			Movie aVeryBigMovie4DB =  entityManager.find(Movie.class, aVeryBigMovie4.getId());
+
+			entityManager.remove(aVeryBigMovie4DB);
+
+			entityManager.getTransaction().commit();
 
 			entityManager.close();
 		} catch (Exception e) {

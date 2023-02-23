@@ -18,6 +18,16 @@ public class Movie {
     private String description;
     private Integer releaseYear;
     private Integer length;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.REMOVE)
+    private List<Preview> previews;
+    public List<Preview> getPreviews() {
+        return previews;
+    }
+
+    public void setPreviews(List<Preview> previews) {
+        this.previews = previews;
+    }
+
 
     public List<Actor> getCasting() {
         return casting;

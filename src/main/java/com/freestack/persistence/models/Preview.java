@@ -15,6 +15,10 @@ public class Preview {
     private String city;
     private Integer numberOfSeats;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_movie")
+    private Movie movie;
+
     public Movie getMovie() {
         return movie;
     }
@@ -23,9 +27,7 @@ public class Preview {
         this.movie = movie;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_movie")
-    private Movie movie;
+
 
     public Long getId() {
         return id;
