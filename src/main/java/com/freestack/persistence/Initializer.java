@@ -1,5 +1,6 @@
 package com.freestack.persistence;
 
+import com.freestack.persistence.models.Actor;
 import com.freestack.persistence.models.Movie;
 import com.freestack.persistence.models.Preview;
 
@@ -121,6 +122,37 @@ public class Initializer {
 			System.out.println(preview1.getMovie().getTitle());
 
 			entityManager.getTransaction().commit();
+
+
+			// TP 6
+			Actor actor1 = new Actor();
+			actor1.setFirstName("John");
+			Actor actor2 = new Actor();
+			actor2.setFirstName("Brenda");
+
+			entityManager.getTransaction().begin();
+
+			entityManager.persist(actor1);
+			entityManager.persist(actor2);
+
+			actor1.addMovieToActorBook(aVeryBigMovie1);
+
+			actor2.addMovieToActorBook(aVeryBigMovie3);
+			actor1.addMovieToActorBook(aVeryBigMovie3);
+
+			entityManager.getTransaction().commit();
+			entityManager.clear();
+
+			Movie aVeryBigMovie1DB = entityManager.find(Movie.class, aVeryBigMovie1.getId());
+			Movie aVeryBigMovie3DB = entityManager.find(Movie.class, aVeryBigMovie3.getId());
+
+			System.out.println("Casting du film " + aVeryBigMovie1DB.getTitle());
+			aVeryBigMovie1DB.getCasting().forEach(actor-> System.out.println(actor.toString()));
+
+			System.out.println("Casting du film " + aVeryBigMovie3DB.getTitle());
+			aVeryBigMovie3DB.getCasting().forEach(actor-> System.out.println(actor.toString()));
+
+
 			entityManager.close();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -17,6 +17,27 @@ public class Actor {
     private String lastName;
     private LocalDate birthDate;
 
+    @ManyToMany
+    @JoinTable(name = "xrel_actorMovie",
+    joinColumns=@JoinColumn(name="actor_id",  referencedColumnName = "id"),
+    inverseJoinColumns=@JoinColumn(name="film_id", referencedColumnName="id")
+    )
+    private List<Movie> bookOfActor;
+
+    public List<Movie> getBookOfActor() {
+        return bookOfActor;
+    }
+
+    public void addMovieToActorBook(Movie movie) {
+        if(this.bookOfActor == null){
+            this.bookOfActor = new ArrayList<>();
+        }
+        this.bookOfActor.add(movie);
+    }
+
+    public void setBookOfActor(List<Movie> book) {
+        this.bookOfActor = book;
+    }
 
     public Actor() {
     }

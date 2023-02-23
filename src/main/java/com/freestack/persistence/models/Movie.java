@@ -19,6 +19,19 @@ public class Movie {
     private Integer releaseYear;
     private Integer length;
 
+    public List<Actor> getCasting() {
+        return casting;
+    }
+
+    public void setCasting(List<Actor> casting) {
+        this.casting = casting;
+    }
+
+    @ManyToMany(mappedBy = "bookOfActor")
+    private List<Actor> casting;
+
+
+
     public LocalDate getLocalDate() {
         return localDate;
     }
